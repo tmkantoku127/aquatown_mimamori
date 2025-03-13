@@ -9,7 +9,7 @@
       margin: 0;
       text-align: center;
       font-family: arial;
-      font-size: 36px;
+      font-size: 48px;
       font-weight: bold;
       background-color: #efffff;
     }
@@ -17,27 +17,27 @@
       margin:0 auto;
     }
     .label {
-      width: 100px;
-      height: 60px;
+      width: 160px;
+      height: 120px;
       text-align: right;
       padding-right: 10px;
     }
     .container {
-      width: 300px;
-      height: 60px;
+      width: 440px;
+      height: 120px;
       border: 1px solid black;
       background-color: #ffffff;
     }
     .spacer {
       width: auto;
-      height: 20px;
+      height: 60px;
     }
     .startBtn {
-      width: 220px;
-      height: 80px;
+      width: 280px;
+      height: 120px;
       text-align: center;
       font-family: arial;
-      font-size: 36px;
+      font-size: 48px;
       font-weight: bold;
       border-radius: 10px;
       border: 1px solid black;
@@ -51,9 +51,9 @@
   </style>
 </head>
 <body>
-  <h3>見守り隊担当くじ引き</h3>
+  <h1>見守り隊担当くじ引き</h1>
   <p>担当1～3を決めてから<br/>開始ボタンを押してください</p>
-  <table>
+  <table id="table1">
     <tr>
       <td class="label">担当1</td>
       <td id="person1" class="container"><div id="result1" class="beflott">抽選前</div></td>
@@ -89,17 +89,19 @@
     ];
 
     $('#startButton').on('click', function() {
-      $('#result3').animate({
-          count: 100
+      $('#table1').animate({
+          count: 1000
         }, {
         duration: 1500,
-        easing: 'linear',
-        step: function () {
+        easing: 'swing',
+        step: function() {
           // ルーレット遅延用
           var cnt = 1
           while(cnt < 5000000) {
             cnt++;
           }
+        },
+        progress: function() {
           var random1 = Math.floor(Math.random() * results.length);
           $('#result1').html(results[random1]);
           $('#result1').addClass("aftlott");
@@ -123,9 +125,6 @@
           $('#result3').addClass("aftlott");
           $('#result3').removeClass("beflott");
           $('#person3').css("background-color", bgColors[random3]);
-        },
-        complete: function () {
-          alert('抽選完了');
         }
       });
     });
