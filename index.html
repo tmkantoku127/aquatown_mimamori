@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>見守り隊担当決め</title>
+  <style>
+    body {
+      height: 100%;
+      margin: 0;
+      text-align: center;
+      font-family: arial;
+      font-size: 36px;
+      font-weight: bold;
+      background-color: #efffff;
+    }
+    table {
+      margin:0 auto;
+    }
+    .label {
+      width: 100px;
+      height: 60px;
+      text-align: right;
+      padding-right: 10px;
+    }
+    .container {
+      width: 300px;
+      height: 60px;
+      border: 1px solid black;
+      background-color: #ffffff;
+    }
+    .spacer {
+      width: auto;
+      height: 20px;
+    }
+    .startBtn {
+      width: 220px;
+      height: 80px;
+      text-align: center;
+      font-family: arial;
+      font-size: 36px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+    .beflott {
+      color: #dddddd;
+    }
+    .aftlott {
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+  <h3>見守り隊担当くじ引き</h3>
+  <p>担当1～3を決めてから<br/>開始ボタンを押してください</p>
+  <table>
+    <tr>
+      <td class="label">担当1</td>
+      <td id="person1" class="container"><div id="result1" class="beflott">抽選前</div></td>
+    </tr>
+    <tr><td colspan="2" class="spacer"></td></tr>
+    <tr>
+      <td class="label">担当2</td>
+      <td id="person2" class="container"><div id="result2" class="beflott">抽選前</div></td>
+    </tr>
+    <tr><td colspan="2" class="spacer"></td></tr>
+    <tr>
+      <td class="label">担当3</td>
+      <td id="person3" class="container"><div id="result3" class="beflott">抽選前</div></td>
+    </tr>
+    <tr><td colspan="2" class="spacer"></td></tr>
+    <tr><td colspan="2" class="spacer"></td></tr>
+    <tr>
+      <td colspan="2"><button id="startButton" class="startBtn">開　始</button></td>
+    </tr>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+    var results = [
+      "A地点(集合場所)",
+      "B地点(横断歩道)",
+      "C地点(体育館)"
+    ];
+    var bgColors = [
+      "skyblue",
+      "lightgreen",
+      "pink"
+    ];
+
+    $('#startButton').on('click', function() {
+      $('#result3').animate({
+          count: 100
+        }, {
+        duration: 1500,
+        easing: 'linear',
+        step: function () {
+          var random1 = Math.floor(Math.random() * results.length);
+          $('#result1').html(results[random1]);
+          $('#result1').addClass("aftlott");
+          $('#result1').removeClass("beflott");
+          $('#person1').css("background-color", bgColors[random1]);
+
+          var random2 = random1;
+          while(random2 == random1) {
+            random2 = Math.floor(Math.random() * results.length);
+          }
+          $('#result2').html(results[random2]);
+          $('#result2').addClass("aftlott");
+          $('#result2').removeClass("beflott");
+          $('#person2').css("background-color", bgColors[random2]);
+
+          var random3 = random2;
+          while(random3 == random2 || random3 == random1) {
+            random3 = Math.floor(Math.random() * results.length);
+          }
+          $('#result3').html(results[random3]);
+          $('#result3').addClass("aftlott");
+          $('#result3').removeClass("beflott");
+          $('#person3').css("background-color", bgColors[random3]);
+
+          // ルーレット遅延用
+          var cnt = 1
+          while(cnt < 5000000) {
+            cnt++;
+          }
+        },
+        complete: function () {
+          alert('抽選完了');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
