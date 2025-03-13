@@ -95,6 +95,11 @@
         duration: 1500,
         easing: 'linear',
         step: function () {
+          // ルーレット遅延用
+          var cnt = 1
+          while(cnt < 5000000) {
+            cnt++;
+          }
           var random1 = Math.floor(Math.random() * results.length);
           $('#result1').html(results[random1]);
           $('#result1').addClass("aftlott");
@@ -118,12 +123,6 @@
           $('#result3').addClass("aftlott");
           $('#result3').removeClass("beflott");
           $('#person3').css("background-color", bgColors[random3]);
-
-          // ルーレット遅延用
-          var cnt = 1
-          while(cnt < 5000000) {
-            cnt++;
-          }
         },
         complete: function () {
           alert('抽選完了');
